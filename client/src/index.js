@@ -5,6 +5,7 @@ import PaperInfo from './PaperInfo';
 import LogicPuzzle from './LogicPuzzle';
 import SectionList from './SectionList';
 import SectionAddButton from './SectionAddButton';
+import PaperSubmit from './PaperSubmit';
 
 ReactDom.render(
     <div id='paper-editor'>
@@ -14,6 +15,7 @@ ReactDom.render(
             <LogicPuzzle/>
             <SectionList/>
             <SectionAddButton/>
+            <PaperSubmit/>
         </div>
 
     </div>,
