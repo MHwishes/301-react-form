@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import '../style/index.less';
+import '../../style/index.less';
 import PaperInfo from './PaperInfo';
 import LogicPuzzle from './LogicPuzzle';
 import SectionList from './SectionList';

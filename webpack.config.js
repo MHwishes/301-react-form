@@ -5,7 +5,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
-    "index": './client/src/index.js',
+    "index": './client/src/components/index.js',
     "vendors": ['bootstrap.css', 'react', 'react-dom']
   },
   output: {

@@ -16,7 +16,7 @@ export default class PaperInfo extends Component {
                 <div className='row'>
                     <label className='col-sm-2  label-control'>试卷描述</label>
                     <div className='col-sm-6'>
-                        <input type='text' className='form-control' placeholder='请输入试卷描述'/>
+                        <textarea type='text' className='form-control' placeholder='请输入试卷描述'/>
                     </div>
                 </div>
             </div>
