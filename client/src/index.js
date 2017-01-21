@@ -4,6 +4,7 @@ import '../style/index.less';
 import PaperInfo from './PaperInfo';
 import LogicPuzzle from './LogicPuzzle';
 import SectionList from './SectionList';
+import SectionAddButton from './SectionAddButton';
 
 ReactDom.render(
     <div id='paper-editor'>
@@ -12,6 +13,7 @@ ReactDom.render(
             <PaperInfo/>
             <LogicPuzzle/>
             <SectionList/>
+            <SectionAddButton/>
         </div>
 
     </div>,
