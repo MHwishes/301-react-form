@@ -3,7 +3,8 @@ import React, {Component} from 'react';
 export default class SectionAddButton extends Component {
 
     showSection() {
-        const section = {quizzes: [], title: '编程题', type: 'homeworkQuiz'};
+        const section = {definition: {}, title: '编程题', type: 'homeworkQuiz'};
+        this.props.handleSectionList(section);
     }
 
     render() {

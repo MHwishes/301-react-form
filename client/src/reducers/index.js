@@ -4,6 +4,7 @@ import updateLogicPuzzle from './updateLogicPuzzle';
 import editSectionName from './editSectionName';
 import deleteSection from './deleteSection';
 import deleteHomeworkQuiz from './deleteHomeworkQuiz';
+import addSection from './addSection';
 
 const actionMap = {
     'INIT_PAPER_DATA': initPaperData,
@@ -11,7 +12,8 @@ const actionMap = {
     'UPDATE_LOGIC_PUZZLE': updateLogicPuzzle,
     'EDIT_SECTION_NAME': editSectionName,
     'DELETE_SECTION': deleteSection,
-    'REMOVE_HOMEWORK_QUIZ': deleteHomeworkQuiz
+    'REMOVE_HOMEWORK_QUIZ': deleteHomeworkQuiz,
+    'ADD_SECTION':addSection
 };
 
 

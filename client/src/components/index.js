@@ -4,7 +4,7 @@ import '../../style/index.less';
 import PaperInfo from '../containers/PaperInfo';
 import LogicPuzzle from '../containers/LogicPuzzle';
 import SectionList from '../containers/SectionList';
-import SectionAddButton from './SectionAddButton';
+import SectionAddButton from '../containers/SectionAddButton';
 import PaperSubmit from './PaperSubmit';
 
 import rootReducer from '../reducers/index.js';
