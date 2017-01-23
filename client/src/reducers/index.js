@@ -1,11 +1,15 @@
 import initPaperData from './initPaperData';
 import editPaper from './editPaper';
 import updateLogicPuzzle from './updateLogicPuzzle';
+import editSectionName from './editSectionName';
+import deleteSection from './deleteSection';
 
 const actionMap = {
     'INIT_PAPER_DATA': initPaperData,
     'EDIT_PAPER': editPaper,
-    'UPDATE_LOGIC_PUZZLE': updateLogicPuzzle
+    'UPDATE_LOGIC_PUZZLE': updateLogicPuzzle,
+    'EDIT_SECTION_NAME': editSectionName,
+    'DELETE_SECTION': deleteSection
 };
 
 

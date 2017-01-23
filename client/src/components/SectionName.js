@@ -21,6 +21,7 @@ export default class SectionName extends Component {
         this.setState({
             writable: false
         });
+        this.props.onAddTitle(this.title.value, this.props.sectionIndex);
     }
 
     closeBody() {
@@ -40,6 +41,11 @@ export default class SectionName extends Component {
         this.setState({
             showModal: 'hidden'
         });
+        this.props.onDeleteSection(this.props.sectionIndex);
+    }
+
+    componentDidMount() {
+        this.title.value = this.props.title;
     }
 
     render() {

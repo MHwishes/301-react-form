@@ -12,6 +12,7 @@ export  default {
         },
         {
             "type": "homeworkQuiz",
+            "title":"编程题",
             "definition": {
                 "quizzes": [
                     "12345" // quizId
