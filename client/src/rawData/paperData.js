@@ -12,10 +12,10 @@ export  default {
         },
         {
             "type": "homeworkQuiz",
-            "title":"编程题",
+            "title": "编程题",
             "definition": {
                 "quizzes": [
-                    "12345" // quizId
+                    {"quizId": "12345"} // quizId
                 ]
             }
         }

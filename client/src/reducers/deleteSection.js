@@ -1,5 +1,5 @@
 const deleteSection = (data, sectionIndex) => {
-    
+
     let newData = Object.assign({}, data);
 
     let logicSections = newData.sections.filter(section => section.type === 'logicPuzzle');
