@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {render} from 'react-dom';
 import '../../style/index.less';
 import PaperInfo from '../containers/PaperInfo';
-import LogicPuzzle from './LogicPuzzle';
+import LogicPuzzle from '../containers/LogicPuzzle';
 import SectionList from './SectionList';
 import SectionAddButton from './SectionAddButton';
 import PaperSubmit from './PaperSubmit';

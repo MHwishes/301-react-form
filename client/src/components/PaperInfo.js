@@ -1,20 +1,18 @@
-import {Component} from 'react';
-import React from 'react';
-
+import React, {Component} from 'react';
 
 export default class PaperInfo extends Component {
 
     editPaperName() {
-        this.props.editPaper({name: this.paperName.value});
+        this.props.editPaper({name: this.name.value});
     }
 
     editDescription() {
         this.props.editPaper({description: this.description.value});
     }
 
-    componentDidMount(){
-        this.paperName.value=this.props.paperName || '';
-        this.description.value=this.props.description ||'';
+    componentDidUpdate() {
+        this.name.value = this.props.name || '';
+        this.description.value = this.props.description || '';
     }
 
     render() {
@@ -25,7 +23,7 @@ export default class PaperInfo extends Component {
                     <div className='col-sm-6'>
                         <input type='text' className='form-control' placeholder='请输入试卷名称'
                                ref={(ref) => {
-                                   this.paperName = ref;
+                                   this.name = ref;
                                }}
                                onBlur={this.editPaperName.bind(this)}
                         />
