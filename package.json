@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/app.js",
-    "webpack": "webpack"
+    "wpw": "webpack -w"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +14,8 @@
     "bootstrap": "^3.3.7",
     "express": "^4.14.0",
     "font-awesome": "^4.7.0",
+    "mongoose": "^4.7.8",
+    "nodemon": "^1.11.0",
     "react": "^15.4.1",
     "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.1",
