@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {render} from 'react-dom';
+import superagent from 'superagent';
 import '../../style/index.less';
 import PaperInfo from '../containers/PaperInfo';
 import LogicPuzzle from '../containers/LogicPuzzle';
@@ -12,7 +13,6 @@ import {createStore, applyMiddleware} from 'redux';
 import {Provider, connect} from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-import paperData from '../rawData/paperData';
 import {withRouter} from 'react-router';
 
 const store = createStore(
@@ -22,8 +22,17 @@ const store = createStore(
 
 
 export default class Main extends Component {
+
     componentDidMount() {
-        this.props.initPaperData(paperData);
+
+        superagent
+            .get(`http://localhost:3000/api/papers/1`)
+            .end((err, res) => {
+                if (err) {
+                    throw err;
+                }
+                this.props.initPaperData(res.body);
+            });
     }
 
     render() {
