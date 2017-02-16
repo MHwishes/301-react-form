@@ -4,7 +4,10 @@ var HomeworkDefinitionController = require('../../controllers/homework-definitio
 
 var paperDefinitionController = new HomeworkDefinitionController();
 
-router.get('/homework', paperDefinitionController.getHomeworkList);
-router.post('/homework/:id', paperDefinitionController.saveHomeworkDefinition);
+router.get('/homework', paperDefinitionController.getAll);
+router.post('/homework', paperDefinitionController.create);
+router.put('/homework/:id', paperDefinitionController.update);
+router.delete('/homework/:id', paperDefinitionController.delete);
+router.get('/homework/:id', paperDefinitionController.getOne);
 
 module.exports = router;

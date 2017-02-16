@@ -1,100 +1,72 @@
-const PaperDefinition = require('../model/paper-definition');
-const constant = require('../mixin/constant');
 
-function PaperDefinitionController() {
+const async = require('async');
+const paper = require('../model/paper-definition');
+const constant = require('../constant/constant');
 
+
+class PaperController {
+    getAll(req, res, next) {
+        async.series({
+            items: (cb)=> {
+                paper.find({}, cb)
+
+            },
+            totalCount: (cb)=> {
+                paper.count(cb)
+            }
+        }, (err, result)=> {
+            if (err) {
+                return next(err);
+            }
+            return res.status(constant.httpCode.OK).send(result);
+        })
+
+    }
+
+    create(req, res, next) {
+        paper.create(req.body, (err, result)=> {
+            if (err) {
+                next(err);
+            }
+            res.sendStatus(constant.httpCode.Created);
+        })
+    }
+
+    getOne(req, res, next) {
+        paper.findById({_id: req.params.id}, (err, result)=> {
+            if (err) {
+                next(err);
+            }
+            if (!result) {
+                res.sendStatus(constant.httpCode.NOT_FOUND);
+            }
+            return res.status(constant.httpCode.OK).send(result);
+        })
+    }
+
+    update(req, res, next) {
+        paper.findByIdAndUpdate({_id: req.params.id}, req.body, function (err, result) {
+            if (err) {
+                res.next(err)
+            }
+            if (!result) {
+                return res.sendStatus(constant.httpCode.NOT_FOUND);
+            }
+            res.sendStatus(constant.httpCode.NO_CONTENT);
+        })
+    }
+
+    delete(req, res, next) {
+        paper.findByIdAndRemove({_id: req.params.id}, function (err, result) {
+            if (err) {
+                res.next(err)
+            }
+            if (!result) {
+                return res.sendStatus(constant.httpCode.NOT_FOUND);
+            }
+            res.sendStatus(constant.httpCode.NO_CONTENT);
+        })
+    }
 }
 
-PaperDefinitionController.prototype.savePaperDefinition = (req, res, next)=> {
-    var paperId = req.params.id;
-    var name = req.body.name;
-    var description = req.body.description;
-    var makerId = req.body.makerId;
-    var createTime = parseInt(new Date().getTime()) /
-        (constant.time.SECONDS_PER_MINUTE *
-        constant.time.MINUTE_PER_HOUR *
-        constant.time.HOURS_PER_DAY *
-        constant.time.MILLISECOND_PER_SECONDS);
-    var updateTime = createTime;
-    var sections = req.body.sections;
-    new PaperDefinition({
-        paperId,
-        name,
-        isDistribution: false,
-        description,
-        makerId,
-        createTime,
-        updateTime,
-        isDeleted: false,
-        sections
-    }).save((err, result)=> {
-        if (err) {
-            res.sendStatus(400);
-        }
-        res.status(201).send(result);
-    });
-};
-
-PaperDefinitionController.prototype.getPaperDefinition = (req, res, next) => {
-    var paperId = req.params.id;
-    PaperDefinition.findOne({paperId: paperId}, (err, data) => {
-        if (!err && data) {
-            res.status(200).send(data);
-        } else {
-            res.status(400).end();
-        }
-    });
-};
-
-PaperDefinitionController.prototype.updatePaperDefinition = (req, res, next)=> {
-    var paperId = req.params.id;
-    var name = req.body.name;
-    var description = req.body.description;
-    var makerId = req.body.makerId;
-    var createTime = parseInt(new Date().getTime()) /
-        (constant.time.SECONDS_PER_MINUTE *
-        constant.time.MINUTE_PER_HOUR *
-        constant.time.HOURS_PER_DAY *
-        constant.time.MILLISECOND_PER_SECONDS);
-    var updateTime = createTime;
-    var sections = req.body.sections;
-    PaperDefinition.update({paperId: paperId}, ({$set: {updateTime, name, description, makerId, sections}}), (err)=> {
-        if (err) {
-            res.sendStatus(400);
-        }
-        res.sendStatus(201);
-    });
-};
-
-
-PaperDefinitionController.prototype.deletePaperDefinition = (req, res, next)=> {
-    var paperId = req.params.id;
-    PaperDefinition.update({paperId: paperId}, {$set: {isDeleted: true}}, (err)=> {
-        if (!err) {
-            res.sendStatus(204);
-        } else {
-            res.sendStatus(400);
-        }
-    });
-};
-
-
-PaperDefinitionController.prototype.getPaperDefinitions = (req, res, next)=> {
-    let pageCount = req.query.pageCount || 10;
-    let page = req.query.page || 1;
-    let skipCount = pageCount * (page - 1);
-
-    PaperDefinition.find({isDeleted: false}).limit(Number(pageCount)).skip(skipCount).exec((err, data)=> {
-        PaperDefinition.count({isDeleted: false}, (error, count) => {
-            if (!err && !error && count && data) {
-                var totalPage = Math.ceil(count / pageCount);
-                res.send({total: totalPage, data: data});
-            } else {
-                res.sendStatus(404);
-            }
-        });
-
-    });
-};
-
-module.exports = PaperDefinitionController;
+module.exports = PaperController;

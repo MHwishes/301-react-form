@@ -4,10 +4,10 @@ var PaperDefinitionController = require('../../controllers/paper-definition-cont
 
 var paperDefinitionController = new PaperDefinitionController();
 
-router.get('/papers/:id', paperDefinitionController.getPaperDefinition);
-router.get('/papers', paperDefinitionController.getPaperDefinitions);
-router.post('/papers/:id', paperDefinitionController.savePaperDefinition);
-router.put('/papers/:id', paperDefinitionController.updatePaperDefinition);
-router.delete('/papers/:id', paperDefinitionController.deletePaperDefinition);
+router.get('/papers/:id', paperDefinitionController.getOne);
+router.get('/papers', paperDefinitionController.getAll);
+router.post('/papers', paperDefinitionController.create);
+router.put('/papers/:id', paperDefinitionController.update);
+router.delete('/papers/:id', paperDefinitionController.delete);
 
 module.exports = router;

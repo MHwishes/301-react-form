@@ -1,42 +1,70 @@
-const HomeworkDefinition = require('../model/homework-definition');
-const constant = require('../mixin/constant');
+const async = require('async');
+const Homework = require('../model/homework-definition');
+const constant = require('../constant/constant');
 
-function homeworkDefinitionController() {
 
-}
-homeworkDefinitionController.prototype.saveHomeworkDefinition = (req, res, next)=> {
-    var _id = req.params.id;
-    var title = req.body.title;
-    var stack = req.body.stack;
+class HomeController {
+    getAll(req, res, next) {
+        async.series({
+            items: (cb)=> {
+                Homework.find({}, cb)
 
-    new  HomeworkDefinition({
-        _id,
-        title,
-        stack
-    }).save((err, result)=> {
-        if (err) {
-            res.sendStatus(400);
-        }
-        res.status(201).send(result);
-    });
-};
-
-homeworkDefinitionController.prototype.getHomeworkList = (res, req, next)=> {
-    let pageCount = req.query.pageCount || 10;
-    let page = req.query.page || 1;
-    let skipCount = pageCount * (page - 1);
-
-    HomeworkDefinition.find({isDeleted: false}).limit(Number(pageCount)).skip(skipCount).exec((err, data)=> {
-        HomeworkDefinition.count({isDeleted: false}, (error, count) => {
-            if (!err && !error && count && data) {
-                var totalPage = Math.ceil(count / pageCount);
-                res.send({total: totalPage, data: data});
-            } else {
-                res.sendStatus(404);
+            },
+            totalCount: (cb)=> {
+                Homework.count(cb)
             }
-        });
-    });
+        }, (err, result)=> {
+            if (err) {
+                return next(err);
+            }
+            return res.status(constant.httpCode.OK).send(result);
+        })
 
-};
+    }
 
-module.exports = homeworkDefinitionController;
+    create(req, res, next) {
+        Homework.create(req.body, (err, result)=> {
+            if (err) {
+                next(err);
+            }
+            res.sendStatus(constant.httpCode.Created);
+        })
+    }
+
+    getOne(req, res, next) {
+        Homework.findById({_id: req.params.id}, (err, result)=> {
+            if (err) {
+                next(err);
+            }
+            if (!result) {
+                res.sendStatus(constant.httpCode.NOT_FOUND);
+            }
+            return res.status(constant.httpCode.OK).send(result);
+        })
+    }
+
+    update(req, res, next) {
+        Homework.findByIdAndUpdate({_id: req.params.id}, req.body, function (err, result) {
+            if (err) {
+                res.next(err)
+            }
+            if (!result) {
+                return res.sendStatus(constant.httpCode.NOT_FOUND);
+            }
+            res.sendStatus(constant.httpCode.NO_CONTENT);
+        })
+    }
+
+    delete(req, res, next) {
+        Homework.findByIdAndRemove({_id: req.params.id}, function (err, result) {
+            if (err) {
+                res.next(err)
+            }
+            if (!result) {
+                return res.sendStatus(constant.httpCode.NOT_FOUND);
+            }
+            res.sendStatus(constant.httpCode.NO_CONTENT);
+        })
+    }
+}
+module.exports = HomeController;
